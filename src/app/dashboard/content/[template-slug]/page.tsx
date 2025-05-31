@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, use } from 'react'
+import { useUser } from '@clerk/nextjs';
 import FormSection from '../_components/FormSection'
 import { TEMPLATE } from '../../_component/TemplateListsSection'
 import Template from '@/app/(data)/Template'
@@ -8,6 +9,10 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { chatSession } from "@/utils/AiModel";
 import dynamic from 'next/dynamic';
+import { AIOutput } from '@/utils/schema';
+import { db } from '@/utils/db';
+import moment from "moment"; 
+
 
 interface PROPS {
   params: Promise<{
@@ -27,7 +32,7 @@ const OutputSection = dynamic(
 const CreateNewContent = ({ params }: PROPS) => {
   const resolvedParams = use(params);
   const { "template-slug": templateSlug } = resolvedParams;
-
+const{user}=useUser();
   const selectedTemplate: TEMPLATE | undefined = Template?.find(
     (items) => items.slug === templateSlug
   );
@@ -35,15 +40,17 @@ const CreateNewContent = ({ params }: PROPS) => {
   const [loading, setLoading] = useState(false);
   const [aiOutput, setAiOutput] = useState<string>('');
 
-  const GenerateAIContent = async (FormData: any) => {
+  const GenerateAIContent = async (formData: any) => {
     const SelectedPrompt = selectedTemplate?.aiPrompt || "";
     setLoading(true);
-    const FinalAIPrompt = JSON.stringify(FormData) + ", " + SelectedPrompt;
+    const FinalAIPrompt = JSON.stringify(formData) + ", " + SelectedPrompt;
 
     try {
       const result = await chatSession.sendMessage(FinalAIPrompt);
       const aiResponse = await result.response.text();
+      
       setAiOutput(aiResponse);
+      await(SaveInDb(formData,selectedTemplate?.slug,aiResponse))
     } catch (error) {
       console.error("AI generation error:", error);
       setAiOutput("Error generating content");
@@ -51,6 +58,22 @@ const CreateNewContent = ({ params }: PROPS) => {
       setLoading(false);
     }
   }
+    const SaveInDb = async (formData: any, slug: any, aiRes: string) => {
+    try {
+      const result = await db.insert(AIOutput).values({
+        formData: formData,
+        templateSlug: slug,
+        aiResponse: aiRes,
+        createdBy: user?.primaryEmailAddress?.emailAddress || "Unknown",
+        createdAt: moment().format("DD/MM/YYYY"),
+      });
+
+      console.log(result);
+    } 
+    catch (error) {
+      console.error("Error saving to DB:", error);
+    }
+  };
 
   return (
     <div className='p-10'>
