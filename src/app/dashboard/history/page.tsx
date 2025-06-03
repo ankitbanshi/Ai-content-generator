@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TEMPLATE as TEMPLATE_LIST } from "../_component/TemplateListsSection";
 
-interface HistoryItem {
+export interface HistoryItem {
   id: number;
   formData: string;
   aiResponse: string;

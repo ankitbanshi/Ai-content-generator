@@ -4,13 +4,14 @@ import { useUser } from '@clerk/nextjs';
 import { AIOutput } from '@/utils/schema';
 import { db } from '@/utils/db';
 import {eq} from 'drizzle-orm'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import HistoryItem from '../history/page'
+import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
 
 function UsageTrack() {
 
 const {user}=useUser();
-
+const {totalUsage,setTotalUsage}=useContext(TotalUsageContext)
 
 
 useEffect(()=>{
@@ -19,16 +20,16 @@ useEffect(()=>{
 
   const GetData=async()=>{
       {/*@ts-ignore */}
-      const results:HistoryItem=await db.select().from(AIOutput).where(eq(AIOutput.createdBy,user?.primaryEmailAddress?.emailAddress));
+      const results:HistoryItem[]=await db.select().from(AIOutput).where(eq(AIOutput.createdBy,user?.primaryEmailAddress?.emailAddress));
 
       GetTotalUsage(results);
     }
- const GetTotalUsage=(results:HistoryItem)=>{
+ const GetTotalUsage=(results:HistoryItem[])=>{
       let total:number=0;
       results.forEach((element: { aiResponse: string | any[]; }) => {
         total=total+Number(element.aiResponse?.length)
     });
-  
+    setTotalUsage(total);
      console.log(total);}
 
 
@@ -38,9 +39,9 @@ useEffect(()=>{
        <h2 className='font-medium '>Credits</h2> 
         <div className="h-2 bg-[#9981f9] w-full rounded-full mt-3">  <div className='h-2 bg-white rounded-full'
         style={{
-          width:'35%'
+          width:(totalUsage/100000)*100+"%"
         }}></div></div>
-      <h2 className='text-sm my-1'>350/10,000 credit used</h2>
+      <h2 className='text-sm my-1'>{totalUsage}/100,000 credit used</h2>
       </div>
     <Button variant={'secondary'} className='w-full my-3 text-primary'>Upgrade</Button>
     </div>

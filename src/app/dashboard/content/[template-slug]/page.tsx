@@ -12,6 +12,9 @@ import dynamic from 'next/dynamic';
 import { AIOutput } from '@/utils/schema';
 import { db } from '@/utils/db';
 import moment from "moment"; 
+import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
+import { useRouter } from 'next/navigation';  // Correct for app directory
+
 
 
 interface PROPS {
@@ -29,6 +32,7 @@ const OutputSection = dynamic(
   }
 );
 
+
 const CreateNewContent = ({ params }: PROPS) => {
   const resolvedParams = use(params);
   const { "template-slug": templateSlug } = resolvedParams;
@@ -39,8 +43,14 @@ const{user}=useUser();
 
   const [loading, setLoading] = useState(false);
   const [aiOutput, setAiOutput] = useState<string>('');
-
+    const router=useRouter();
+  const[totalUsage,setTotalUsage]=useState<any>(TotalUsageContext);
   const GenerateAIContent = async (formData: any) => {
+    if(totalUsage>=100000){
+      alert("please upgrade");
+      router.push('/dashboard/billing')
+      return ;
+    }
     const SelectedPrompt = selectedTemplate?.aiPrompt || "";
     setLoading(true);
     const FinalAIPrompt = JSON.stringify(formData) + ", " + SelectedPrompt;
