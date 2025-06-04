@@ -52,8 +52,10 @@ function Header() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: 500, currency: "INR" }),
       });
-
-      if (!res.ok) throw new Error("Order creation failed");
+if (!res.ok) {
+  const errorData = await res.json(); // Get server error details
+  throw new Error(`Order failed: ${errorData.message || res.statusText}`);
+}
       const data = await res.json();
 
       const options = {
