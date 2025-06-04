@@ -8,6 +8,12 @@ import React, { useContext, useEffect,useState } from 'react'
 import HistoryItem from '../history/page'
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
 
+
+type HistoryItem = {
+  aiResponse: string | any[];
+  // add other fields as needed
+}; 
+
 function UsageTrack() {
 
 const {user}=useUser();
