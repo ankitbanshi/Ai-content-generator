@@ -1,10 +1,13 @@
-import React from "react";
-
-
+"use client"
+import React, { useState } from "react";
+import axio from 'axios'
+import { Description } from "@radix-ui/react-alert-dialog";
+import Razorpay from 'razorpay';
+import { Loader, Loader2Icon } from "lucide-react";
 
 interface Plan {
   name: string;
-  price: number; // Changed to number type
+  price: number;
   features: string[];
   button: {
     label: string
@@ -44,7 +47,37 @@ const plans: Plan[] = [
 const baseButtonStyle =
   "border-2 hover:bg-black border-indigo-500 text-indigo-700 font-semibold rounded-full px-8 py-2 mt-6 transition group-hover:bg-indigo-50 group-hover:text-indigo-700 group-hover:border-indigo-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60";
 
-const BillingPlans = () => (
+const billing = () =>{ 
+   const[loading,setLoading]=useState(false);
+  const CreateSubscription=()=>{
+    setLoading(true);
+            axio.post('/api/create-subscription',{})
+            .then(resp=>{
+              console.log(resp.data);
+              OnPayment(resp.data.id)
+            },(error)=>{
+              setLoading(false)
+            })
+  }
+  
+  const OnPayment=(subId:string)=>{
+           const options={
+            "key":process.env.NEXT_REZORPAY_KEY_ID,
+            "subscription_id":subId,
+            "name":'Ai-content-generaton',
+            description: "monthly subscription",
+            handler:async(resp:any)=>{
+              console.log(resp);
+              setLoading(false);
+            }
+           }
+           const rzp=window.Razorpay(options);
+           rzp.open();
+  }
+  
+  return (
+    <div>
+      <script src="https://checkout.rezorpay.com/v1/checkout.js"></script>
   <div className="min-h-screen bg-gradient-to-b from-gray-100 to-white flex flex-col items-center py-12">
     <h2 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900">
       Upgrade With Monthly Plan
@@ -87,15 +120,17 @@ const BillingPlans = () => (
             ))}
           </ul>
           <button
-            className={`${baseButtonStyle} `}
+          disabled={loading}
+             className={`${baseButtonStyle}`}
+  onClick={CreateSubscription}
        
-          >
+          >{loading&&<Loader2Icon className="animate-spin"/>}
             {plan.button.label}
           </button>
         </div>
       ))}
     </div>
-  </div>
-);
+  </div></div>
+)};
 
-export default BillingPlans;
+export default billing;
