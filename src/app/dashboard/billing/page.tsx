@@ -1,11 +1,101 @@
-import React from 'react'
+import React from "react";
 
-function billing() {
-  return (
-    <div>
-      peisa de
-    </div>
-  )
+
+
+interface Plan {
+  name: string;
+  price: number; // Changed to number type
+  features: string[];
+  button: {
+    label: string
+  };
 }
 
-export default billing
+const plans: Plan[] = [
+  {
+    name: "Free",
+    price:0,
+    features: [
+      "10,000 Words/Month",
+      "50+ Content Templates",
+      "Unlimited Download & Copy",
+      "1 Month of History",
+    ],
+    button: {
+      label: "Currently Active Plan",
+
+    },
+  },
+  {
+    name: "Monthly",
+    price: 10000,
+    features: [
+      "1,00,000 Words/Month",
+      "50+ Template Access",
+      "Unlimited Download & Copy",
+      "1 Year of History",
+    ],
+    button: {
+      label: "Get Started",
+    },
+  },
+];
+
+const baseButtonStyle =
+  "border-2 hover:bg-black border-indigo-500 text-indigo-700 font-semibold rounded-full px-8 py-2 mt-6 transition group-hover:bg-indigo-50 group-hover:text-indigo-700 group-hover:border-indigo-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60";
+
+const BillingPlans = () => (
+  <div className="min-h-screen bg-gradient-to-b from-gray-100 to-white flex flex-col items-center py-12">
+    <h2 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900">
+      Upgrade With Monthly Plan
+    </h2>
+    <div className="flex flex-col md:flex-row gap-8">
+      {plans.map((plan, idx) => (
+        <div
+          key={plan.name}
+          className="bg-white rounded-2xl shadow-md p-8 w-80 flex flex-col items-center group"
+        >
+          <div className="mb-2 text-lg font-semibold">{plan.name}</div>
+          <div className="flex items-end mb-1">
+            
+              <span className="text-3xl font-bold ">
+                {plan.price}Rs  
+              </span>
+            
+            <span className="ml-1 text-base font-normal text-gray-500">
+              /month
+            </span>
+          </div>
+          <ul className="text-gray-700 text-sm space-y-2 mt-4 mb-2">
+            {plan.features.map((feature) => (
+              <li key={feature} className="flex items-center">
+                <svg
+                  className="w-4 h-4 text-indigo-500 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+          <button
+            className={`${baseButtonStyle} `}
+       
+          >
+            {plan.button.label}
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+export default BillingPlans;
