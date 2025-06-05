@@ -1,9 +1,10 @@
 "use client"
 import React, { useState } from "react";
 import axio from 'axios'
-import { Description } from "@radix-ui/react-alert-dialog";
-import Razorpay from 'razorpay';
 import { Loader, Loader2Icon } from "lucide-react";
+import { UserSubscription } from "@/utils/schema";
+import { db } from "@/utils/db";
+import { useUser } from "@clerk/nextjs";
 
 interface Plan {
   name: string;
@@ -49,6 +50,7 @@ const baseButtonStyle =
 
 const billing = () =>{ 
    const[loading,setLoading]=useState(false);
+   const {user}=useUser();
   const CreateSubscription=()=>{
     setLoading(true);
             axio.post('/api/create-subscription',{})
@@ -68,11 +70,29 @@ const billing = () =>{
             description: "monthly subscription",
             handler:async(resp:any)=>{
               console.log(resp);
+              if(resp){
+                SaveSubscription(resp?.razorpay_payment_id);
+              }
               setLoading(false);
             }
            }
            const rzp=window.Razorpay(options);
            rzp.open();
+  }
+  const SaveSubscription =async(paymentId:string)=>{
+      if (!paymentId) {
+    console.log("paymentId is missing!");
+    return;
+  }
+       const result= await db.insert(UserSubscription)
+       .values({
+        email:user?.primaryEmailAddress?.emailAddress,
+        userName:user?.fullName,
+        active:true,
+        paymentId:paymentId,
+        joinedDate: new Date().toISOString().split('T')[0]
+       } )
+       console.log(result);
   }
   
   return (
