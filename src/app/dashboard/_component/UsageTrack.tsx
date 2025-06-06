@@ -8,6 +8,7 @@ import React, { useContext, useEffect,useState } from 'react'
 import HistoryItem from '../history/page'
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
 import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext';
+import { UpdateCreditUsageContext } from '@/app/(context)/UpdateCreditUsageContext';
 
 type HistoryItem = {
   aiResponse: string | any[];
@@ -20,10 +21,14 @@ const {user}=useUser();
 const {totalUsage,setTotalUsage}=useContext(TotalUsageContext)
 const {userSubscription,setUserSubscription}=useContext(UserSubscriptionContext)
  const[maxWords,setMaxWords]=useState<Number>(100000);
+ const{updateCreditUsage,setCreditUsage}=useContext(UpdateCreditUsageContext)
 useEffect(()=>{
     user && GetData();
     user&&IsUserSubscribe();
 },[user])
+useEffect(()=>{
+   user&&GetData();
+},[updateCreditUsage&&user])
 
   const GetData=async()=>{
       {/*@ts-ignore */}
