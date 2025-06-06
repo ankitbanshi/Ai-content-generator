@@ -5,7 +5,8 @@ import { Loader, Loader2Icon } from "lucide-react";
 import { UserSubscription } from "@/utils/schema";
 import { db } from "@/utils/db";
 import { useUser } from "@clerk/nextjs";
-
+import { UserSubscriptionContext } from "@/app/(context)/UserSubscriptionContext";
+import { useContext } from "react";
 interface Plan {
   name: string;
   price: number;
@@ -51,6 +52,7 @@ const baseButtonStyle =
 const billing = () =>{ 
    const[loading,setLoading]=useState(false);
    const {user}=useUser();
+   const {userSubscription,setUserSubscription}=useContext(UserSubscriptionContext)
   const CreateSubscription=()=>{
     setLoading(true);
             axio.post('/api/create-subscription',{})
@@ -93,6 +95,9 @@ const billing = () =>{
         joinedDate: new Date().toISOString().split('T')[0]
        } )
        console.log(result);
+       if(result){
+        window.location.reload();
+       }
   }
   
   return (
@@ -145,7 +150,7 @@ const billing = () =>{
   onClick={CreateSubscription}
        
           >{loading&&<Loader2Icon className="animate-spin"/>}
-            {plan.button.label}
+            {userSubscription?'Active plane': plan.button.label}
           </button>
         </div>
       ))}

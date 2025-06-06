@@ -14,8 +14,8 @@ import { db } from '@/utils/db';
 import moment from "moment"; 
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
 import { useRouter } from 'next/navigation';  // Correct for app directory
-
-
+import { useContext } from 'react';
+import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext';
 
 interface PROPS {
   params: Promise<{
@@ -45,8 +45,9 @@ const{user}=useUser();
   const [aiOutput, setAiOutput] = useState<string>('');
     const router=useRouter();
   const[totalUsage,setTotalUsage]=useState<any>(TotalUsageContext);
+  const {userSubscription,setUserSubscription}=useContext(UserSubscriptionContext)
   const GenerateAIContent = async (formData: any) => {
-    if(totalUsage>=100000){
+    if(totalUsage>=100000&&!userSubscription ){
       alert("please upgrade");
       router.push('/dashboard/billing')
       return ;

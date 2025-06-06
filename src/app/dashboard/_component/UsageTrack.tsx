@@ -1,13 +1,13 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { useUser } from '@clerk/nextjs';
-import { AIOutput } from '@/utils/schema';
+import { AIOutput, UserSubscription } from '@/utils/schema';
 import { db } from '@/utils/db';
 import {eq} from 'drizzle-orm'
 import React, { useContext, useEffect,useState } from 'react'
 import HistoryItem from '../history/page'
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
-
+import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext';
 
 type HistoryItem = {
   aiResponse: string | any[];
@@ -18,10 +18,11 @@ function UsageTrack() {
 
 const {user}=useUser();
 const {totalUsage,setTotalUsage}=useContext(TotalUsageContext)
-
-
+const {userSubscription,setUserSubscription}=useContext(UserSubscriptionContext)
+ const[maxWords,setMaxWords]=useState<Number>(100000);
 useEffect(()=>{
     user && GetData();
+    user&&IsUserSubscribe();
 },[user])
 
   const GetData=async()=>{
@@ -30,6 +31,17 @@ useEffect(()=>{
 
       GetTotalUsage(results);
     }
+
+  const IsUserSubscribe=async()=>{
+    const result=await db.select().from(UserSubscription)
+    .where(eq(UserSubscription.email,user?.primaryEmailAddress?.emailAddress))
+
+    if(result){
+      setUserSubscription(true);
+      setMaxWords(1000000)
+    }
+  }
+
  const GetTotalUsage=(results:HistoryItem[])=>{
       let total:number=0;
       results.forEach((element: { aiResponse: string | any[]; }) => {
@@ -45,9 +57,9 @@ useEffect(()=>{
        <h2 className='font-medium '>Credits</h2> 
         <div className="h-2 bg-[#9981f9] w-full rounded-full mt-3">  <div className='h-2 bg-white rounded-full'
         style={{
-          width:(totalUsage/100000)*100+"%"
+          width:`${(Number(totalUsage) / Number(maxWords)) * 100}%`
         }}></div></div>
-      <h2 className='text-sm my-1'>{totalUsage}/100,000 credit used</h2>
+      <h2 className='text-sm my-1'>({totalUsage}/{maxWords} )credit used</h2>
       </div>
     <Button variant={'secondary'} className='w-full my-3 text-primary'>Upgrade</Button>
     </div>
