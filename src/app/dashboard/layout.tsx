@@ -17,7 +17,7 @@ function layout({ children,
   return (
     <TotalUsageContext.Provider value={{totalUsage,setTotalUsage}}>
       <UserSubscriptionContext.Provider value={{userSubscription,setUserSubscription}}>
-    <UpdateCreditUsageContext.Provider value={{}}>
+    <UpdateCreditUsageContext.Provider value={{ updateCreditUsage,setUpdateCreditUsage}}>
     <div className=' bg-slate-200 min-h-screen'>
       <div>
       <div className='md:w-64 hidden md:block fixed'>
