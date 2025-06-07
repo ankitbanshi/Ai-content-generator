@@ -40,7 +40,7 @@ function SideNav() {
   };
 
   return (
-    <aside className=" h-full  bg-black border-r border-muted-foreground flex flex-col ">
+    <aside className=" h-screen   bg-black border-r border-muted-foreground flex flex-col ">
       <div className="flex justify-center py-5 border-b border-muted-foreground items-center gap-2 ">
         <Image
           src={'/logo.svg'}

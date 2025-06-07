@@ -64,7 +64,7 @@ useEffect(()=>{
         style={{
           width:`${(Number(totalUsage) / Number(maxWords)) * 100}%`
         }}></div></div>
-      <h2 className='text-sm my-1'>({totalUsage}/{maxWords} )credit used</h2>
+      <h2 className='text-sm my-1'>{totalUsage}/{maxWords} credit used</h2>
       </div>
     <Button variant={'secondary'} className='w-full my-3 text-primary'>Upgrade</Button>
     </div>

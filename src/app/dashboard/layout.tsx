@@ -18,13 +18,14 @@ function layout({ children,
     <TotalUsageContext.Provider value={{totalUsage,setTotalUsage}}>
       <UserSubscriptionContext.Provider value={{userSubscription,setUserSubscription}}>
     <UpdateCreditUsageContext.Provider value={{}}>
-    <div className='bg-slate-200 h-screen'>
+    <div className=' bg-slate-200 min-h-screen'>
+      <div>
       <div className='md:w-64 hidden md:block fixed'>
         <SideNav/>
       </div>
       <div className='md:ml-64'>
         <Header/>
-          {children}
+          {children}</div>
       </div>
 
     </div>
