@@ -1,41 +1,59 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 AI Content Generator
 
-## Getting Started
+A full-stack AI-powered content generator using **Next.js**, **Gemini API**, **Clerk**, **Drizzle ORM**, **PostgreSQL**, and **Razorpay** for payments.
 
-First, run the development server:
+🔗 [GitHub Repo](https://github.com/ankitbanshi/Ai-content-generator)
+
+---
+
+## 🚀 Features
+
+- 🤖 AI content generation via Gemini API
+- 📝 Rich text editor
+- 🔐 Authentication with Clerk
+- 🧮 Drizzle ORM + PostgreSQL
+- 💳 Razorpay payments
+- 📊 User dashboard & content management
+
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend:** Next.js (App Router), Tailwind CSS, TypeScript  
+- **Backend:** Gemini API, Razorpay, Clerk  
+- **Database:** PostgreSQL + Drizzle ORM
+
+---
+
+## 📦 Setup
 
 ```bash
+git clone https://github.com/ankitbanshi/Ai-content-generator.git
+cd Ai-content-generator
+npm install
+Add .env file
+env
+Copy
+Edit
+DATABASE_URL=your_postgres_url
+CLERK_PUBLISHABLE_KEY=your_clerk_key
+CLERK_SECRET_KEY=your_clerk_secret
+NEXT_PUBLIC_CLERK_FRONTEND_API=your_clerk_frontend_api
+GEMINI_API_KEY=your_gemini_api_key
+RAZORPAY_KEY_ID=your_razorpay_key
+RAZORPAY_KEY_SECRET=your_razorpay_secret
+Run Project
+bash
+Copy
+Edit
+npx drizzle-kit push
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+📄 License
+MIT
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+👤 Author
+Ankit Kumar
+🔗 LinkedIn
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
-# new_repo
-This is a new repository
->>>>>>> cad2c4ffef09a1968291c1891c07622ca7c22591
+⭐️ Support
+Like this project? Leave a ⭐ on GitHub
