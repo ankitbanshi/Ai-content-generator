@@ -1,16 +1,13 @@
 
-import React from 'react'
-import { Button } from '../../../../my-app/src/components/ui/button'
-import { SignOutButton, UserProfile } from '@clerk/nextjs'
+import React from 'react';
+import { UserProfile } from '@clerk/nextjs';
+
 function Settings() {
-
-
-
   return (
-    <div className='flex justify-center items-center '>
-       <UserProfile/>
+    <div className="flex justify-center items-center">
+      <UserProfile routing="hash" />
     </div>
-  )
+  );
 }
 
-export default Settings
+export default Settings;
