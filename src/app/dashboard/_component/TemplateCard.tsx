@@ -1,9 +1,9 @@
 import React from 'react'
-import { TEMPLATE } from './TemplateListsSection'
+import type { TEMPLATE as TemplateType } from '@/types/templates'
 import Image from 'next/image'
 import Link from 'next/link'
 
-function TemplateCard(item: TEMPLATE) {
+function TemplateCard(item: TemplateType) {
   return (
     <Link href={'/dashboard/content/' + item?.slug}>
       <div className="p-5 shadow-md bg-white rounded-md border flex-col  gap-3 cursor-pointer hover:scale-105 transition-all h-full">

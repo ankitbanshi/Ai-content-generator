@@ -1,4 +1,4 @@
-export default [
+const TEMPLATE_DATA = [
   {
     name: "Write the Code",
     desc: "AI Model to generate programming code in any language",
@@ -879,3 +879,5 @@ export default [
     ],
   },
 ];
+
+export default TEMPLATE_DATA;

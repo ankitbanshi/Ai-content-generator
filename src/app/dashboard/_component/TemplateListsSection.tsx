@@ -1,50 +1,34 @@
 "use client";
-import Template from '../../(data)/Template'; // assuming this exports an array of TEMPLATE objects
+import Template from '../../(data)/Template'; // typed below via shared types
 import React, { useEffect, useState } from 'react';
 import TemplateCard from './TemplateCard';
 
 // In TemplateListSection.tsx or wherever TEMPLATE is defined
-export const TEMPLATE = Template;
+import type { TEMPLATE as TemplateType } from '@/types/templates';
 
-
-export interface TEMPLATE {
-  name: string;
-  desc: string;
-  icon: string;
-  category: string;
-  slug: string;
-  aiPrompt: string;
-  form?: FORM[];
-}
-
-export interface FORM {
-  label: string;
-  field: string;
-  name: string;
-  required?: boolean;
-}
+export const TEMPLATE = Template as TemplateType[];
 
 interface TemplateListSectionProps {
   userSearchInput: string;
 }
 
 function TemplateListSection({ userSearchInput }: TemplateListSectionProps) {
-  const [templateList, setTemplateList] = useState<TEMPLATE[]>(Template);
+  const [templateList, setTemplateList] = useState<TemplateType[]>(TEMPLATE);
 
   useEffect(() => {
     if (userSearchInput) {
-      const filteredData = Template.filter((item) =>
+      const filteredData = TEMPLATE.filter((item) =>
         item.name.toLowerCase().includes(userSearchInput.toLowerCase())
       );
       setTemplateList(filteredData);
     } else {
-      setTemplateList(Template);
+      setTemplateList(TEMPLATE);
     }
   }, [userSearchInput]);
 
   return (
     <div className="px-3 py-5 md:px-5 md:py-10 lg:px-10 lg:py-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-      {templateList.map((item: TEMPLATE, index: number) => (
+      {templateList.map((item: TemplateType, index: number) => (
         <TemplateCard key={index} {...item} />
       ))}
     </div>

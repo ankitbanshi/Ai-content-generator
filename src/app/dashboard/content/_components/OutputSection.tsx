@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
+import { Editor as ToastEditor} from '@toast-ui/react-editor';
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 function OutputSection({ aiOutput }: Props) {
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<ToastEditor>(null);
 
   useEffect(() => {
     if (editorRef.current) {
@@ -36,7 +36,7 @@ function OutputSection({ aiOutput }: Props) {
           Copy
         </Button>
       </div>
-      <Editor
+      <ToastEditor
         ref={editorRef}
         initialValue="Your result will appear here!"
         initialEditType="wysiwyg"

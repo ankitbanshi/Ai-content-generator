@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import SearchSection from './_component/SearchSection'
 import TemplateListsSection from './_component/TemplateListsSection'
 
-function dashboard() {
-  const [userSearchInput,setUserSearchInput]=useState<string>()
+function Dashboard() {
+  const [userSearchInput,setUserSearchInput]=useState<string>("")
   return (
     <div>
      {/* SearchContent*/}
@@ -15,4 +15,4 @@ function dashboard() {
   )
 }
 
-export default dashboard
+export default Dashboard

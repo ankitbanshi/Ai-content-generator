@@ -1,3 +1,12 @@
-import {createContext} from "react";
+// src/app/(context)/UserSubscriptionContext.tsx
+import { createContext } from "react";
 
-export const UserSubscriptionContext = createContext<any>(null)
+export interface UserSubscriptionContextType {
+  userSubscription: boolean;
+  setUserSubscription: (val: boolean) => void;
+}
+
+export const UserSubscriptionContext = createContext<UserSubscriptionContextType>({
+  userSubscription: false,
+  setUserSubscription: () => {},
+});

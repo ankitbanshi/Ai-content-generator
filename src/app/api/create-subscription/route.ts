@@ -1,11 +1,11 @@
 // src/app/api/createOrder/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 
-export async function POST(req: NextRequest) {
+export async function POST() {
 
 
-     let instance=new Razorpay({
+     const instance = new Razorpay({
        key_id: process.env.REZORPAY_KEY_ID,
       key_secret: process.env.REZORPAY_KEY_SECRET,
      })

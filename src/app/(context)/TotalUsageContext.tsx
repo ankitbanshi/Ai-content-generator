@@ -1,3 +1,13 @@
-import {createContext} from "react";
+// src/app/(context)/TotalUsageContext.tsx
+import { createContext } from "react";
 
-export const TotalUsageContext = createContext<any>(0);
+export interface TotalUsageContextType {
+  totalUsage: number;
+  setTotalUsage: (val: number) => void;
+}
+
+export const TotalUsageContext = createContext<TotalUsageContextType>({
+  totalUsage: 0,
+  setTotalUsage: () => {},
+});
+  

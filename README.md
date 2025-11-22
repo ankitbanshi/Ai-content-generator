@@ -1,3 +1,63 @@
+**AI Content Generator**
+
+- **Description:** AI Content Generator is a Next.js (App Router) + TypeScript project that provides a library of AI-powered content templates (blog, social, code tools, etc.) and a UI to generate content using a generative AI model.
+
+**Quick Start**
+
+- Prerequisites:
+  - Node.js 18+ and npm
+
+- Install dependencies:
+
+```powershell
+npm install
+```
+
+- Run development server:
+
+```powershell
+npm run dev
+```
+
+- Build for production:
+
+```powershell
+npm run build
+```
+
+- Start production server (after a successful build):
+
+```powershell
+npm run start
+```
+
+**Available Scripts**
+
+- `dev`: Runs Next.js in development mode.
+- `build`: Builds the app for production (runs lint/type checks).
+- `start`: Starts the production server (requires a prior `build`).
+- `lint`: Run project linter.
+- `db:push` / `db:studio`: Drizzle Kit helpers (if you use the DB tooling in this project).
+
+**Environment Variables**
+- .env example
+
+
+**Project Notes & Structure**
+
+- App entry: `src/app/` (App Router). Key pages and components live under `src/app/dashboard/...`.
+- Template definitions: `src/app/(data)/Template.tsx` contains the template list used by the UI.
+- Shared template types: `src/types/templates.ts` defines `TEMPLATE` and `FormField` used across components.
+- Form component: `src/app/dashboard/content/_components/FormSection.tsx` renders dynamic template forms.
+- API routes: `src/app/api/*` contains server endpoints (history, create-subscription).
+
+
+**TypeScript & Lint**
+
+- The project uses TypeScript (see `tsconfig.json`). `npm run build` will run type checks and ESLint. Fix issues reported by the build or run `npm run lint` locally.
+
+
+
 # 🧠 AI Content Generator
 
 A full-stack AI-powered content generator using **Next.js**, **Gemini API**, **Clerk**, **Drizzle ORM**, **PostgreSQL**, and **Razorpay** for payments.
@@ -24,36 +84,27 @@ A full-stack AI-powered content generator using **Next.js**, **Gemini API**, **C
 - **Database:** PostgreSQL + Drizzle ORM
 
 ---
+# AI Content Generator
 
-## 📦 Setup
+A minimal README with only the essentials to run this Next.js + TypeScript app.
 
-```bash
-git clone https://github.com/ankitbanshi/Ai-content-generator.git
-cd Ai-content-generator
+## Quick start
+
+Install dependencies:
+```powershell
 npm install
-Add .env file
-env
-Copy
-Edit
-DATABASE_URL=your_postgres_url
-CLERK_PUBLISHABLE_KEY=your_clerk_key
-CLERK_SECRET_KEY=your_clerk_secret
-NEXT_PUBLIC_CLERK_FRONTEND_API=your_clerk_frontend_api
-GEMINI_API_KEY=your_gemini_api_key
-RAZORPAY_KEY_ID=your_razorpay_key
-RAZORPAY_KEY_SECRET=your_razorpay_secret
-Run Project
-bash
-Copy
-Edit
-npx drizzle-kit push
+```
+
+Run development server:
+```powershell
 npm run dev
-📄 License
-MIT
+```
 
-👤 Author
-Ankit Kumar
-🔗 LinkedIn
+Build and start (production):
+```powershell
+npm run build
+npm run start
+```
 
-⭐️ Support
-Like this project? Leave a ⭐ on GitHub
+
+

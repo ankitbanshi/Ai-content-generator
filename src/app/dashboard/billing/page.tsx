@@ -63,7 +63,7 @@ const loadRazorpayScript = (src: string): Promise<boolean> => {
 // Add Razorpay type declaration for TypeScript
 declare global {
   interface Window {
-    Razorpay: any;
+    Razorpay: unknown;
   }
 }
 
@@ -95,13 +95,17 @@ const Billing = () => {
       setLoading(false);
       return;
     }
-
+interface RazorpayResponse {
+  razorpay_payment_id: string;
+  razorpay_subscription_id: string;
+  razorpay_signature: string;
+}
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       subscription_id: subId,
       name: "AI Content Generation",
       description: "Monthly Subscription",
-      handler: async (resp: any) => {
+      handler: async (resp: RazorpayResponse) => {
         console.log(resp);
         if (resp?.razorpay_payment_id) {
           await SaveSubscription(resp.razorpay_payment_id);
@@ -110,7 +114,9 @@ const Billing = () => {
       },
     };
 
-    const rzp = new window.Razorpay(options);
+    // `Razorpay` comes from an external SDK; narrow its type here.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rzp = new (window.Razorpay as any)(options);
     rzp.open();
   };
 

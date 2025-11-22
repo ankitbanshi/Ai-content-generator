@@ -28,7 +28,8 @@ export default function History() {
         if (!res.ok) throw new Error("Failed to fetch history");
         const data = await res.json();
         setHistoryList(data);
-      } catch (error) {
+      } catch (err) {
+        console.error(err);
         alert("Failed to load history");
       } finally {
         setLoading(false);

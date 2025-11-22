@@ -4,18 +4,14 @@
  * $ npm install @google/generative-ai
  */
 
-const {
-    GoogleGenerativeAI,
-    HarmCategory,
-    HarmBlockThreshold,
-  } = require("@google/generative-ai");
-  
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY;
-  const genAI = new GoogleGenerativeAI(apiKey);
-  
-  const model = genAI.getGenerativeModel({
-    model:"gemini-2.5-flash",
-  });
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const apiKey = process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY as string | undefined;
+const genAI = new GoogleGenerativeAI(apiKey ?? "");
+
+const model = genAI.getGenerativeModel({
+  model: "gemini-2.5-flash",
+});
   
   const generationConfig = {
     temperature: 1,
@@ -26,13 +22,12 @@ const {
   };
   
  
-    export const chatSession = model.startChat({
-      generationConfig,
-   // safetySettings: Adjust safety settings
-   // See https://ai.google.dev/gemini-api/docs/safety-settings
-      history: [
-      ],
-    });
+export const chatSession = model.startChat({
+  generationConfig,
+  // safetySettings: Adjust safety settings
+  // See https://ai.google.dev/gemini-api/docs/safety-settings
+  history: [],
+});
   
     
  

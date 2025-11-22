@@ -1,3 +1,12 @@
-import {createContext} from 'react';
+// src/app/(context)/UpdateCreditUsageContext.tsx
+import { createContext } from "react";
 
-export const UpdateCreditUsageContext=createContext<any>(null);
+export interface UpdateCreditUsageContextType {
+  updateCreditUsage: number;
+  setUpdateCreditUsage: (val: number) => void;
+}
+
+export const UpdateCreditUsageContext = createContext<UpdateCreditUsageContextType>({
+  updateCreditUsage: 0,
+  setUpdateCreditUsage: () => {},
+});
