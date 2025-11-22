@@ -94,12 +94,25 @@ const Billing = () => {
       setLoading(false);
       return;
     }
-    interface RazorpayResponse {
+    type RazorpayResponse = {
       razorpay_payment_id: string;
       razorpay_subscription_id: string;
       razorpay_signature: string;
-    }
-    const options = {
+    };
+
+    type RazorpayOptions = {
+      key?: string;
+      subscription_id: string;
+      name: string;
+      description?: string;
+      handler: (resp: RazorpayResponse) => void | Promise<void>;
+    };
+
+    type RazorpayInstance = {
+      open: () => void;
+    };
+
+    const options: RazorpayOptions = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       subscription_id: subId,
       name: "AI Content Generation",
@@ -113,7 +126,17 @@ const Billing = () => {
       },
     };
 
-    const rzp = new (window.Razorpay as any)(options);
+    const RazorpayConstructor = (window.Razorpay as unknown) as
+      | (new (opts: RazorpayOptions) => RazorpayInstance)
+      | undefined;
+
+    if (!RazorpayConstructor) {
+      alert("Razorpay SDK is not available on window.");
+      setLoading(false);
+      return;
+    }
+
+    const rzp = new RazorpayConstructor(options);
     rzp.open();
   };
 
