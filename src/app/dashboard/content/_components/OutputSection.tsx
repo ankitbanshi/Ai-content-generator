@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor as ToastEditor} from '@toast-ui/react-editor';
-import { Button } from '@/components/ui/button';
-import { Copy } from 'lucide-react';
+import React, { useEffect, useRef } from "react";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor as ToastEditor } from "@toast-ui/react-editor";
+import { Button } from "@/components/ui/button";
+import { Copy } from "lucide-react";
 
 interface Props {
   aiOutput: string;
@@ -14,7 +14,7 @@ function OutputSection({ aiOutput }: Props) {
   useEffect(() => {
     if (editorRef.current) {
       const editorInstance = editorRef.current.getInstance();
-      editorInstance.setMarkdown(aiOutput || '');
+      editorInstance.setMarkdown(aiOutput || "");
     }
   }, [aiOutput]);
 

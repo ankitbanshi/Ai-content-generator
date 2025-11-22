@@ -35,7 +35,7 @@ export default function History() {
         setLoading(false);
       }
     };
-    
+
     if (isLoaded) fetchHistory();
   }, [user?.emailAddresses, isLoaded]);
 
@@ -43,12 +43,13 @@ export default function History() {
     const template = TEMPLATE_LIST.find((item) => item.slug === slug);
     return {
       name: template?.name || "Unknown Template",
-      icon: template?.icon || "/default-icon.png"
+      icon: template?.icon || "/default-icon.png",
     };
   };
 
   const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text)
+    navigator.clipboard
+      .writeText(text)
       .then(() => alert("Copied to clipboard!"))
       .catch(() => alert("Copy failed"));
   };
@@ -57,13 +58,13 @@ export default function History() {
     return <div className="m-5 p-5">Loading your history...</div>;
   }
 
-
-
   return (
     <div className="m-5 p-5 border rounded-lg bg-white">
       <h2 className="font-bold text-3xl">History</h2>
-      <p className="text-gray-500">Search your previously generated AI content history</p>
-      
+      <p className="text-gray-500">
+        Search your previously generated AI content history
+      </p>
+
       <div className="grid grid-cols-7 font-bold bg-secondary mt-5 py-3">
         <h2 className="col-span-2">TEMPLATE</h2>
         <h2 className="col-span-2">AI RESPONSE</h2>
@@ -76,7 +77,10 @@ export default function History() {
         historyList.map((item) => {
           const { name, icon } = GetTemplateData(item.templateSlug);
           return (
-            <div key={item.id} className="grid grid-cols-7 my-5 py-3 px-3 border-b">
+            <div
+              key={item.id}
+              className="grid grid-cols-7 my-5 py-3 px-3 border-b"
+            >
               <div className="col-span-2 flex gap-2 items-center">
                 <Image
                   src={icon}

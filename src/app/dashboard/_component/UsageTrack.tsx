@@ -20,35 +20,44 @@ function UsageTrack() {
   const { updateCreditUsage } = useContext(UpdateCreditUsageContext);
   const [maxWords, setMaxWords] = useState<number>(100000);
 
-  const GetTotalUsage = useCallback((results: HistoryItem[]) => {
-    let total: number = 0;
-    results.forEach((element) => {
-      total += Number(element.aiResponse?.length || 0);
-    });
-    setTotalUsage(total);
-    console.log(total);
-  }, [setTotalUsage]);
+  const GetTotalUsage = useCallback(
+    (results: HistoryItem[]) => {
+      let total: number = 0;
+      results.forEach((element) => {
+        total += Number(element.aiResponse?.length || 0);
+      });
+      setTotalUsage(total);
+      console.log(total);
+    },
+    [setTotalUsage]
+  );
 
-  const GetData = useCallback(async (email: string) => {
-    const results: HistoryItem[] = await db
-      .select()
-      .from(AIOutput)
-      .where(eq(AIOutput.createdBy, email));
+  const GetData = useCallback(
+    async (email: string) => {
+      const results: HistoryItem[] = await db
+        .select()
+        .from(AIOutput)
+        .where(eq(AIOutput.createdBy, email));
 
-    GetTotalUsage(results);
-  }, [GetTotalUsage]);
+      GetTotalUsage(results);
+    },
+    [GetTotalUsage]
+  );
 
-  const IsUserSubscribe = useCallback(async (email: string) => {
-    const result = await db
-      .select()
-      .from(UserSubscription)
-      .where(eq(UserSubscription.email, email));
+  const IsUserSubscribe = useCallback(
+    async (email: string) => {
+      const result = await db
+        .select()
+        .from(UserSubscription)
+        .where(eq(UserSubscription.email, email));
 
-    if (result.length > 0) {
-      setUserSubscription(true);
-      setMaxWords(1000000);
-    }
-  }, [setUserSubscription]);
+      if (result.length > 0) {
+        setUserSubscription(true);
+        setMaxWords(1000000);
+      }
+    },
+    [setUserSubscription]
+  );
 
   useEffect(() => {
     if (user?.primaryEmailAddress?.emailAddress) {
@@ -62,8 +71,6 @@ function UsageTrack() {
       GetData(user.primaryEmailAddress.emailAddress);
     }
   }, [updateCreditUsage, user, GetData]);
-
-  
 
   return (
     <div className="m-5">

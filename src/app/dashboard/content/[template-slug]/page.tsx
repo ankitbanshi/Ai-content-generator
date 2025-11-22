@@ -3,8 +3,8 @@
 import React, { useState, useContext, use } from "react";
 import { useUser } from "@clerk/nextjs";
 import FormSection from "../_components/FormSection";
-import type { TEMPLATE as TemplateType } from '@/types/templates';
-import { TEMPLATE as TEMPLATE_LIST } from '../../_component/TemplateListsSection';
+import type { TEMPLATE as TemplateType } from "@/types/templates";
+import { TEMPLATE as TEMPLATE_LIST } from "../../_component/TemplateListsSection";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -31,12 +31,13 @@ interface Props {
 }
 
 const CreateNewContent = ({ params }: Props) => {
-  // Unwrap params since it's now a Promise
   const resolvedParams = use(params);
   const { "template-slug": templateSlug } = resolvedParams;
 
   const { user } = useUser();
-  const selectedTemplate: TemplateType | undefined = TEMPLATE_LIST.find((item) => item.slug === templateSlug);
+  const selectedTemplate: TemplateType | undefined = TEMPLATE_LIST.find(
+    (item) => item.slug === templateSlug
+  );
 
   const [loading, setLoading] = useState(false);
   const [aiOutput, setAiOutput] = useState<string>("");

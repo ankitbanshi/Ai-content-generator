@@ -1,10 +1,8 @@
 "use client";
-import Template from '../../(data)/Template'; // typed below via shared types
-import React, { useEffect, useState } from 'react';
-import TemplateCard from './TemplateCard';
-
-// In TemplateListSection.tsx or wherever TEMPLATE is defined
-import type { TEMPLATE as TemplateType } from '@/types/templates';
+import Template from "../../(data)/Template";
+import React, { useEffect, useState } from "react";
+import TemplateCard from "./TemplateCard";
+import type { TEMPLATE as TemplateType } from "@/types/templates";
 
 export const TEMPLATE = Template as TemplateType[];
 

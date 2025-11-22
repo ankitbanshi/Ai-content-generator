@@ -1,49 +1,49 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { FileClock, Home, Settings, WalletCards } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import UsageTrack from './UsageTrack';
+import Image from "next/image";
+import { FileClock, Home, Settings, WalletCards } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import UsageTrack from "./UsageTrack";
 
 function SideNav() {
   const MenuList = [
     {
-      name: 'Home',
+      name: "Home",
       icon: Home,
-      path: '/dashboard',
+      path: "/dashboard",
     },
     {
-      name: 'History',
+      name: "History",
       icon: FileClock,
-      path: '/dashboard/history',
+      path: "/dashboard/history",
     },
     {
-      name: 'Billing',
+      name: "Billing",
       icon: WalletCards,
-      path: '/dashboard/billing',
+      path: "/dashboard/billing",
     },
     {
-      name: 'Setting',
+      name: "Setting",
       icon: Settings,
-      path: '/dashboard/setting',
+      path: "/dashboard/setting",
     },
   ];
 
   const path = usePathname();
 
   const isActiveLink = (menuPath: string) => {
-    if (menuPath === '/dashboard') {
-      return path === '/dashboard';
+    if (menuPath === "/dashboard") {
+      return path === "/dashboard";
     }
-    return path.startsWith(menuPath + '/') || path === menuPath;
+    return path.startsWith(menuPath + "/") || path === menuPath;
   };
 
   return (
     <aside className=" h-screen   bg-black border-r border-muted-foreground flex flex-col ">
       <div className="flex justify-center py-5 border-b border-muted-foreground items-center gap-2 ">
         <Image
-          src={'/logo.svg'}
+          src={"/logo.svg"}
           alt="logo"
           width={45}
           height={45}
@@ -60,7 +60,7 @@ function SideNav() {
             key={index}
             href={menu.path}
             className={`flex gap-2 mb-2 p-3 hover:bg-primary text-white rounded-lg cursor-pointer items-center
-            ${isActiveLink(menu.path) && 'bg-primary text-white'}
+            ${isActiveLink(menu.path) && "bg-primary text-white"}
           `}
           >
             <menu.icon className="md:size-6 size-4" />

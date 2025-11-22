@@ -1,4 +1,3 @@
-// src/app/(context)/TotalUsageContext.tsx
 import { createContext } from "react";
 
 export interface TotalUsageContextType {
@@ -10,4 +9,3 @@ export const TotalUsageContext = createContext<TotalUsageContextType>({
   totalUsage: 0,
   setTotalUsage: () => {},
 });
-  

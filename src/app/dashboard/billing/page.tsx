@@ -49,7 +49,6 @@ const plans: Plan[] = [
 const baseButtonStyle =
   "border-2 hover:bg-black border-indigo-500 text-indigo-700 font-semibold rounded-full px-8 py-2 mt-6 transition group-hover:bg-indigo-50 group-hover:text-indigo-700 group-hover:border-indigo-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60";
 
-// Utility function to dynamically load Razorpay script
 const loadRazorpayScript = (src: string): Promise<boolean> => {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -60,7 +59,6 @@ const loadRazorpayScript = (src: string): Promise<boolean> => {
   });
 };
 
-// Add Razorpay type declaration for TypeScript
 declare global {
   interface Window {
     Razorpay: unknown;
@@ -70,8 +68,9 @@ declare global {
 const Billing = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
-  const { userSubscription, setUserSubscription } =
-    useContext(UserSubscriptionContext);
+  const { userSubscription, setUserSubscription } = useContext(
+    UserSubscriptionContext
+  );
 
   const CreateSubscription = async () => {
     setLoading(true);
@@ -95,11 +94,11 @@ const Billing = () => {
       setLoading(false);
       return;
     }
-interface RazorpayResponse {
-  razorpay_payment_id: string;
-  razorpay_subscription_id: string;
-  razorpay_signature: string;
-}
+    interface RazorpayResponse {
+      razorpay_payment_id: string;
+      razorpay_subscription_id: string;
+      razorpay_signature: string;
+    }
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       subscription_id: subId,
@@ -114,8 +113,6 @@ interface RazorpayResponse {
       },
     };
 
-    // `Razorpay` comes from an external SDK; narrow its type here.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rzp = new (window.Razorpay as any)(options);
     rzp.open();
   };

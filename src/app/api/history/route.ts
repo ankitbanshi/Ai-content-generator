@@ -6,7 +6,11 @@ import { currentUser } from "@clerk/nextjs/server";
 
 function safeDateToISOString(date: unknown) {
   let d: Date;
-  if (typeof date === "string" || typeof date === "number" || date instanceof Date) {
+  if (
+    typeof date === "string" ||
+    typeof date === "number" ||
+    date instanceof Date
+  ) {
     d = new Date(date);
   } else {
     d = new Date();
@@ -36,7 +40,7 @@ export async function GET() {
       .orderBy(desc(AIOutput.createdAt));
 
     // Safely format dates
-    const formattedData = data.map(item => ({
+    const formattedData = data.map((item) => ({
       ...item,
       createdAt: safeDateToISOString(item.createdAt),
     }));
@@ -44,6 +48,9 @@ export async function GET() {
     return NextResponse.json(formattedData);
   } catch (error) {
     console.error("API Error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

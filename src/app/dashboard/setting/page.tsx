@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { UserProfile } from '@clerk/nextjs';
+import React from "react";
+import { UserProfile } from "@clerk/nextjs";
 
 function Settings() {
   return (
