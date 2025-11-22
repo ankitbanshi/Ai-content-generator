@@ -3,8 +3,7 @@
 A full-stack AI-powered content generation platform built with Next.js, Gemini API, Clerk, Drizzle ORM, and Razorpay.
 It provides ready-made content templates (blogs, social posts, code utilities, etc.) and a UI to generate, edit, and manage AI-generated content.
 
-Live demo: https://ai-content-generator-yhjc.vercel.app/sign-in?redirect_url=https%3A%2F%2Fai-content-generator-yhjc.vercel.app%2F
-
+Live demo: https://ai-content-generator-seven-rho.vercel.app/
 GitHub: https://github.com/ankitbanshi/Ai-content-generator
 
 ---
