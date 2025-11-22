@@ -43,14 +43,6 @@ npm run start
 - .env example
 
 
-**Project Notes & Structure**
-
-- App entry: `src/app/` (App Router). Key pages and components live under `src/app/dashboard/...`.
-- Template definitions: `src/app/(data)/Template.tsx` contains the template list used by the UI.
-- Shared template types: `src/types/templates.ts` defines `TEMPLATE` and `FormField` used across components.
-- Form component: `src/app/dashboard/content/_components/FormSection.tsx` renders dynamic template forms.
-- API routes: `src/app/api/*` contains server endpoints (history, create-subscription).
-
 
 **TypeScript & Lint**
 
